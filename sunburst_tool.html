@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>D3 Sunburst Chart with Upload</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+    #controls {
+      margin: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <label>
+      Upload Data:
+      <input id="file-upload" type="file" accept=".json,.csv" />
+    </label>
+    <label>
+      Chart Size:
+      <input id="chart-size" type="number" value="300" step="10" />
+    </label>
+    <label>
+      Font Size:
+      <input id="font-size" type="number" value="5" step="0.1" />
+    </label>
+    <label>
+      Dynamic Font Size:
+      <input id="dynamic-font" type="checkbox" checked />
+      <span id="dynamic-font-value">5</span>px
+    </label>
+    <label>
+      Bold Font:
+      <input id="bold-font" type="checkbox" />
+    </label>
+    <label>
+      Text Alignment:
+      <select id="text-alignment">
+        <option value="middle" selected>Center</option>
+        <option value="start">Right</option>
+        <option value="end">Left</option>
+      </select>
+    </label>
+    <label>
+      Text Offset:
+      <input id="text-offset" type="number" value="0" step="1" /> px
+    </label>
+    <label>
+      Apply to All Levels:
+      <input id="apply-to-all-levels" type="checkbox" />
+    </label>
+    <button id="reset-text-offset">Reset Text Offset</button>
+    <label>
+      Download Format:
+      <select id="download-format">
+        <option value="svg">SVG</option>
+        <option value="png">PNG</option>
+      </select>
+    </label>
+    <button id="download-btn">Download</button>
+  </div>
+  <div id="level-controls">
+    <label>
+      Total Levels: <span id="total-levels"></span>
+    </label>
+    <label>
+      Adjust Level:
+      <select id="level-selector"></select>
+    </label>
+    <label>
+      Ring Height:
+      <input id="ring-height" type="number" value="50" step="1" /> px
+    </label>
+  </div>
+  <div id="chart-container"></div>
+  <script>
+    let chartSize = 300;
+    let fontSize = 5; // 初始字体大小
+    let dynamicFontScale = 700; // 动态字体的增长倍数的倒数
+    let useDynamicFont = true;
+
+    // 动态计算 dynamicFontBase，使初始字体大小固定
+    let dynamicFontBase = fontSize - chartSize / dynamicFontScale;
+
+    let useBoldFont = false;
+    let textAlignment = "middle"; // 默认文字水平居中
+    let textOffset = 0; // 水平偏移量
+    let currentData = null;
+    // 改为使用一个数组来保存每一层的高度，初始值将根据数据层数确定
+    let levelHeights = []; 
+    let textOffsets = []; // 每个 level 的 Text Offset 值，初始为空
+    let applyToAllLevels = false; // 默认不应用于所有层
+
+    document.getElementById("apply-to-all-levels").addEventListener("change", (e) => {
+      applyToAllLevels = e.target.checked;
+    });
+
+    document.getElementById("text-offset").addEventListener("input", (e) => {
+      const value = e.target.value.trim();
+      const offsetValue = value === "" ? 0 : parseFloat(value);
+
+      if (applyToAllLevels) {
+        textOffsets = textOffsets.map(() => offsetValue); // 更新所有层的值
+      } else {
+        const selIndex = parseInt(document.getElementById("level-selector").value);
+        textOffsets[selIndex] = offsetValue; // 更新当前层的值
+      }
+
+      renderChart(); // 重新渲染图表
+    });
+
+    document.getElementById("reset-text-offset").addEventListener("click", () => {
+      textOffsets = textOffsets.map(() => 0); // 重置所有层的值为 0
+      document.getElementById("text-offset").value = 0; // 重置输入框值
+      renderChart(); // 重新渲染图表
+    });
+
+    function chart(data) {
+      console.log("Input Data:", data);
+      const width = chartSize;
+      const height = chartSize;
+
+      const hierarchy = d3.hierarchy(data).sum(d => d.value);
+      // partition 布局
+      const root = d3.partition().size([2 * Math.PI, hierarchy.height + 1])(hierarchy);
+      root.each(d => { d.current = d; });
+
+      // 计算图表总层数（包括根层）
+      const numLevels = hierarchy.height + 1;
+      // 如果 levelHeights 数组未设置或层数不匹配，则初始每层高度均为 50
+      if (!Array.isArray(levelHeights) || levelHeights.length !== numLevels) {
+        levelHeights = new Array(numLevels).fill(50);
+      }
+      // 如果 textOffsets 数组未设置或层数不匹配，则初始每层 Text Offset 均为 0
+      if (!Array.isArray(textOffsets) || textOffsets.length !== numLevels) {
+        textOffsets = new Array(numLevels).fill(0);
+      }
+      // 更新总层数控件及层级选择下拉菜单
+      document.getElementById("total-levels").textContent = numLevels;
+      const levelSelector = document.getElementById("level-selector");
+      // 保存当前选中的值（如果存在），默认为 0
+      const currentSelection = levelSelector.value || "0";
+      levelSelector.innerHTML = "";
+      for (let i = 0; i < numLevels; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = `Level ${i}`;
+        levelSelector.appendChild(option);
+      }
+      // 恢复之前的选中项，如果该选项仍然存在
+      levelSelector.value = currentSelection;
+
+      // 根据 levelHeights 计算累积半径数组，radii[0]=0, radii[i+1]=radii[i]+levelHeights[i]
+      const radii = [0];
+      for (let i = 0; i < levelHeights.length; i++) {
+        radii.push(radii[i] + levelHeights[i]);
+      }
+
+      const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+
+      const arc = d3.arc()
+        .startAngle(d => d.x0)
+        .endAngle(d => d.x1)
+        .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+        .padRadius(radii[radii.length - 1] * 1.5)
+        // 根据节点深度设置内外半径：内 = radii[d.depth]，外 = radii[d.depth+1]
+        .innerRadius(d => radii[d.depth])
+        .outerRadius(d => Math.max(radii[d.depth+1] - 1, radii[d.depth]));
+
+      const fontSizeValue = useDynamicFont
+        ? (dynamicFontBase + chartSize / dynamicFontScale).toFixed(1)
+        : fontSize; // 动态或静态字体大小
+
+      const svg = d3.create("svg")
+        .attr("viewBox", [-radii[radii.length - 1], -radii[radii.length - 1], radii[radii.length - 1] * 2, radii[radii.length - 1] * 2])
+        .attr("width", width)
+        .attr("height", height)
+        .style("font", `${fontSizeValue}px sans-serif`); // 应用字体大小
+
+      const path = svg.append("g")
+        .selectAll("path")
+        .data(root.descendants().slice(1))
+        .join("path")
+        .attr("fill", d => {
+          while (d.depth > 1) d = d.parent;
+          return color(d.data.name);
+        })
+        .attr("fill-opacity", d => d.children ? 0.6 : 0.4)
+        .attr("d", d => arc(d.current));
+
+      const label = svg.append("g")
+        .attr("pointer-events", "none")
+        .style("user-select", "none")
+        .selectAll("text")
+        .data(root.descendants().slice(1))
+        .join("text")
+        .attr("fill-opacity", 1)
+        .attr("transform", d => labelTransform(d.current))
+        .attr("text-anchor", d => {
+          const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+          return x < 180 ? textAlignment : reverseAlignment(textAlignment);
+        })
+        .each(function(d) {
+          const lines = d.data.name.split('\n');
+          const n = lines.length;
+          d3.select(this)
+            .selectAll("tspan")
+            .data(lines.map(line => ({ line, node: d.current })))
+            .join("tspan")
+            .attr("x", d => {
+              const x0 = d.node.x0 || 0;
+              const x1 = d.node.x1 || 0;
+              const x = (x0 + x1) / 2 * 180 / Math.PI;
+              return x < 180 ? textOffsets[d.node.depth] || 0 : -(textOffsets[d.node.depth] || 0);
+            })
+            .attr("dy", (d, i) => i === 0 ? `${-((n - 1) / 2)*1.2 + 0.3}em` : "1.3em")
+            .style("font-weight", useBoldFont ? "bold" : "normal")
+            .text(d => d.line);
+        });
+
+      function labelTransform(d) {
+        const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+        // 中心位置取该层内外半径的平均值
+        const y = (radii[d.depth] + radii[d.depth+1]) / 2;
+        return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+      }
+
+      function reverseAlignment(alignment) {
+        if (alignment === "start") return "end";
+        if (alignment === "end") return "start";
+        return "middle";
+      }
+
+      return svg.node();
+    }
+
+    function renderChart() {
+      const container = document.getElementById("chart-container");
+      container.innerHTML = "";
+      if (currentData) {
+        container.appendChild(chart(currentData));
+      }
+    }
+
+    // 监听原有控件（chart-size、font-size、动态字体、粗体、文字对齐、文字偏移、文件上传等）...
+    document.getElementById("chart-size").addEventListener("input", (e) => {
+      chartSize = parseFloat(e.target.value);
+      if (useDynamicFont) {
+        const dynamicFontValue = (dynamicFontBase + chartSize / dynamicFontScale).toFixed(1);
+        document.getElementById("dynamic-font-value").textContent = dynamicFontValue;
+      }
+      renderChart();
+    });
+
+    document.getElementById("font-size").addEventListener("input", (e) => {
+      fontSize = parseFloat(e.target.value);
+      useDynamicFont = false; // 禁用动态字体
+      document.getElementById("dynamic-font").checked = false; // 取消勾选动态字体复选框
+      renderChart();
+    });
+
+    document.getElementById("dynamic-font").addEventListener("change", (e) => {
+      useDynamicFont = e.target.checked;
+      const dynamicFontValue = useDynamicFont
+        ? (dynamicFontBase + chartSize / dynamicFontScale).toFixed(1)
+        : fontSize.toFixed(1);
+      document.getElementById("dynamic-font-value").textContent = dynamicFontValue;
+      renderChart(); // 重新渲染图表，应用新的字体大小
+    });
+
+    document.getElementById("bold-font").addEventListener("change", (e) => {
+      useBoldFont = e.target.checked;
+      renderChart();
+    });
+
+    document.getElementById("text-alignment").addEventListener("change", (e) => {
+      textAlignment = e.target.value; // 更新文字对齐方式
+      renderChart();
+    });
+
+    document.getElementById("file-upload").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (file.name.endsWith(".json")) {
+          currentData = JSON.parse(reader.result);
+        } else if (file.name.endsWith(".csv")) {
+          currentData = csvToJson(reader.result);
+        }
+        renderChart();
+
+        e.target.value = ""; // 清空文件选择框的值，允许重新选择相同文件
+      };
+      reader.readAsText(file);
+    });
+
+    document.getElementById("download-btn").addEventListener("click", () => {
+      const format = document.getElementById("download-format").value;
+      const svgElement = document.querySelector("svg");
+      const serializer = new XMLSerializer();
+      const svgString = serializer.serializeToString(svgElement);
+
+      if (format === "svg") {
+        console.log("SVG String:", svgString); // 调试 SVG 字符串
+        const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        console.log("Download URL:", url); // 调试下载链接
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "chart.svg";
+        link.click();
+        URL.revokeObjectURL(url);
+      } else if (format === "png") {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        const img = new Image();
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = () => {
+          console.log("Image loaded for PNG");
+
+          const scaleFactor = 4;
+          canvas.width = svgElement.getBoundingClientRect().width * scaleFactor;
+          canvas.height = svgElement.getBoundingClientRect().height * scaleFactor;
+          context.scale(scaleFactor, scaleFactor);
+
+          context.drawImage(img, 0, 0);
+          URL.revokeObjectURL(url);
+
+          const link = document.createElement("a");
+          link.download = "chart.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        };
+
+        img.onerror = () => {
+          console.error("Failed to load image for PNG");
+        };
+
+        img.src = url;
+      }
+    });
+
+    // 监听 Adjust Level 控件变化：更新 Ring Height 输入框的值为当前选中层的高度
+    document.getElementById("level-selector").addEventListener("change", (e) => {
+      const selIndex = parseInt(e.target.value);
+      document.getElementById("ring-height").value = levelHeights[selIndex];
+      document.getElementById("text-offset").value = textOffsets[selIndex] || 0; // 更新输入框值
+    });
+
+    // 监听 Ring Height 输入框变化，根据 Adjust Level 更新对应层的高度
+    document.getElementById("ring-height").addEventListener("input", (e) => {
+      const selIndex = parseInt(document.getElementById("level-selector").value);
+      const newHeight = parseFloat(e.target.value);
+      levelHeights[selIndex] = newHeight;
+      renderChart();
+    });
+
+    renderChart(); // 初始渲染
+  </script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+{
+  "name": "Aroma Wheel",
+  "children": [
+    {
+      "name": "Fruity",
+      "children": [
+        {
+          "name": "Citrus",
+          "children": [
+            {
+              "name": "Grapefruit",
+              "value": 1.0
+            },
+            {
+              "name": "Lemon",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Berry",
+          "children": [
+            {
+              "name": "Blackberry",
+              "value": 1.0
+            },
+            {
+              "name": "Raspberry",
+              "value": 1.0
+            },
+            {
+              "name": "Strawberry",
+              "value": 1.0
+            },
+            {
+              "name": "Black currant\n(cassis)",
+              "value": 2.0
+            }
+          ]
+        },
+        {
+          "name": "(Tree) Fruit",
+          "children": [
+            {
+              "name": "Cherry",
+              "value": 1.0
+            },
+            {
+              "name": "Apricot",
+              "value": 1.0
+            },
+            {
+              "name": "Peach",
+              "value": 1.0
+            },
+            {
+              "name": "Apple",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Tropical Fruit",
+          "children": [
+            {
+              "name": "Pineapple",
+              "value": 1.0
+            },
+            {
+              "name": "Melon",
+              "value": 1.0
+            },
+            {
+              "name": "Banana",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Dried Fruit",
+          "children": [
+            {
+              "name": "Strawberry jam",
+              "value": 1.0
+            },
+            {
+              "name": "Raisin",
+              "value": 1.0
+            },
+            {
+              "name": "Prune",
+              "value": 1.0
+            },
+            {
+              "name": "Fig",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Other",
+          "children": [
+            {
+              "name": "Artificial fruit",
+              "value": 1.0
+            },
+            {
+              "name": "Methyl anthranilate",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vegetative",
+      "children": [
+        {
+          "name": "Fresh",
+          "children": [
+            {
+              "name": "Stemmy",
+              "value": 1.0
+            },
+            {
+              "name": "Grass cut green",
+              "value": 1.0
+            },
+            {
+              "name": "Bell pepper",
+              "value": 1.0
+            },
+            {
+              "name": "Eucalyptus",
+              "value": 1.0
+            },
+            {
+              "name": "Mint",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Canned/Cooked",
+          "children": [
+            {
+              "name": "Green beans",
+              "value": 1.0
+            },
+            {
+              "name": "Asparagus",
+              "value": 1.0
+            },
+            {
+              "name": "Green olive",
+              "value": 1.0
+            },
+            {
+              "name": "Black olive",
+              "value": 1.0
+            },
+            {
+              "name": "Artichoke",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Dried",
+          "children": [
+            {
+              "name": "Hay straw",
+              "value": 1.0
+            },
+            {
+              "name": "Tea",
+              "value": 1.0
+            },
+            {
+              "name": "Tobacco",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nutty",
+      "children": [
+        {
+          "name": "Nutty",
+          "children": [
+            {
+              "name": "Walnut",
+              "value": 1.0
+            },
+            {
+              "name": "Hazelnut",
+              "value": 1.0
+            },
+            {
+              "name": "Almond",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Caramelized",
+      "children": [
+        {
+          "name": "Caramelized",
+          "children": [
+            {
+              "name": "Honey",
+              "value": 1.0
+            },
+            {
+              "name": "Butterscotch",
+              "value": 1.0
+            },
+            {
+              "name": "Diacetyl (butter)",
+              "value": 1.0
+            },
+            {
+              "name": "Soy sauce",
+              "value": 1.0
+            },
+            {
+              "name": "Chocolate",
+              "value": 1.0
+            },
+            {
+              "name": "Molasses",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Woody",
+      "children": [
+        {
+          "name": "Phenolic",
+          "children": [
+            {
+              "name": "Phenolic",
+              "value": 1.0
+            },
+            {
+              "name": "Vanilla",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": " Resinous",
+          "children": [
+            {
+              "name": "Cedar",
+              "value": 1.5
+            }
+          ]
+        },
+        {
+          "name": "Burned",
+          "children": [
+            {
+              "name": "Smoky",
+              "value": 1.0
+            },
+            {
+              "name": "Burnt toast/charred",
+              "value": 1.0
+            },
+            {
+              "name": "Burnt coffee",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Earthy",
+      "children": [
+        {
+          "name": "Moldy",
+          "children": [
+            {
+              "name": "Moldy cork",
+              "value": 1.0
+            },
+            {
+              "name": "Musty (mildew)",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Earthy",
+          "children": [
+            {
+              "name": "Mushroomy",
+              "value": 1.0
+            },
+            {
+              "name": "Dustry",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chemical",
+      "children": [
+        {
+          "name": "Petroleum",
+          "children": [
+            {
+              "name": "Diesel",
+              "value": 1.0
+            },
+            {
+              "name": "Kerosene",
+              "value": 1.0
+            },
+            {
+              "name": "Plastic",
+              "value": 1.0
+            },
+            {
+              "name": "Tar",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Sulfur",
+          "children": [
+            {
+              "name": "Wet wool/Wet dog",
+              "value": 1.0
+            },
+            {
+              "name": "Sulfur dioxide",
+              "value": 1.0
+            },
+            {
+              "name": "Burnt match",
+              "value": 1.0
+            },
+            {
+              "name": "Cooked cabbage",
+              "value": 1.0
+            },
+            {
+              "name": "Skunk",
+              "value": 1.0
+            },
+            {
+              "name": "Garlic",
+              "value": 1.0
+            },
+            {
+              "name": "Mercaptan",
+              "value": 1.0
+            },
+            {
+              "name": "Hydrogen sulfide\n(rotten eggs)",
+              "value": 2.0
+            },
+            {
+              "name": "Rubbery",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Papery",
+          "children": [
+            {
+              "name": "Wet cardboard",
+              "value": 1.0
+            },
+            {
+              "name": "Filter pad",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Pungent",
+          "children": [
+            {
+              "name": "Ethyl acetate",
+              "value": 1.0
+            },
+            {
+              "name": "Acetic acid",
+              "value": 1.0
+            },
+            {
+              "name": "Ethanol",
+              "value": 1.0
+            },
+            {
+              "name": "Sulfur dioxide",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Other",
+          "children": [
+            {
+              "name": "Soapy",
+              "value": 1.0
+            },
+            {
+              "name": "Fishy",
+              "value": 1.0
+            },
+            {
+              "name": "Sorbate",
+              "value": 1.0
+            },
+            {
+              "name": "Fusel alcohol",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pungent",
+      "children": [
+        {
+          "name": "Cool",
+          "children": [
+            {
+              "name": "Menthol",
+              "value": 1.7
+            }
+          ]
+        },
+        {
+          "name": "Hot",
+          "children": [
+            {
+              "name": "Alcohol",
+              "value": 1.7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Oxidized",
+      "children": [
+        {
+          "name": "Oxidized",
+          "children": [
+            {
+              "name": "Acetaldehyde",
+              "value": 3.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Microbiological",
+      "children": [
+        {
+          "name": "Yeasty",
+          "children": [
+            {
+              "name": "Flor yeast",
+              "value": 1.0
+            },
+            {
+              "name": "Leesy",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Lactic",
+          "children": [
+            {
+              "name": "Lactic acid",
+              "value": 1.0
+            },
+            {
+              "name": "Sweaty",
+              "value": 1.0
+            },
+            {
+              "name": "Butyric acid",
+              "value": 1.0
+            },
+            {
+              "name": "Sauerkraut",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "name": "Other",
+          "children": [
+            {
+              "name": "Mousy",
+              "value": 1.0
+            },
+            {
+              "name": "Horsy",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Floral",
+      "children": [
+        {
+          "name": "Floral",
+          "children": [
+            {
+              "name": "Linalool",
+              "value": 1.0
+            },
+            {
+              "name": "Orange blossom",
+              "value": 1.0
+            },
+            {
+              "name": "Rose",
+              "value": 1.0
+            },
+            {
+              "name": "Violet",
+              "value": 1.0
+            },
+            {
+              "name": "Geranium",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spicy",
+      "children": [
+        {
+          "name": "Spicy",
+          "children": [
+            {
+              "name": "Licorice (anise)",
+              "value": 1.0
+            },
+            {
+              "name": "Cloves",
+              "value": 1.0
+            },
+            {
+              "name": "Black pepper",
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

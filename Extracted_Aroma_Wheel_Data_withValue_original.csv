@@ -1,0 +1,94 @@
+Family,Category,Descriptor,Value
+Fruity,"Citrus",Grapefruit,1
+Fruity,"Citrus",Lemon,1
+Fruity,"Berry",Blackberry,1
+Fruity,"Berry",Raspberry,1
+Fruity,"Berry",Strawberry,1
+Fruity,"Berry",Black currant\n(cassis),2
+Fruity,"(Tree) Fruit",Cherry,1
+Fruity,"(Tree) Fruit",Apricot,1
+Fruity,"(Tree) Fruit",Peach,1
+Fruity,"(Tree) Fruit",Apple,1
+Fruity,"Tropical Fruit",Pineapple,1
+Fruity,"Tropical Fruit",Melon,1
+Fruity,"Tropical Fruit",Banana,1
+Fruity,"Dried Fruit",Strawberry jam,1
+Fruity,"Dried Fruit",Raisin,1
+Fruity,"Dried Fruit",Prune,1
+Fruity,"Dried Fruit",Fig,1
+Fruity,Other,Artificial fruit,1
+Fruity,Other,Methyl anthranilate,1
+"Vegetative","Fresh",Stemmy,1
+"Vegetative","Fresh",Grass cut green,1
+"Vegetative","Fresh",Bell pepper,1
+"Vegetative","Fresh",Eucalyptus,1
+"Vegetative","Fresh",Mint,1
+"Vegetative","Canned/Cooked",Green beans,1
+"Vegetative","Canned/Cooked",Asparagus,1
+"Vegetative","Canned/Cooked",Green olive,1
+"Vegetative","Canned/Cooked",Black olive,1
+"Vegetative","Canned/Cooked",Artichoke,1
+"Vegetative","Dried",Hay straw,1
+"Vegetative","Dried",Tea,1
+"Vegetative","Dried",Tobacco,1
+Nutty,"Nutty",Walnut,1
+Nutty,"Nutty",Hazelnut,1
+Nutty,"Nutty",Almond,1
+"Caramelized","Caramelized",Honey,1
+"Caramelized","Caramelized",Butterscotch,1
+"Caramelized","Caramelized",Diacetyl (butter),1
+"Caramelized","Caramelized",Soy sauce,1
+"Caramelized","Caramelized",Chocolate,1
+"Caramelized","Caramelized",Molasses,1
+Woody,"Phenolic",Phenolic,1
+Woody,"Phenolic",Vanilla,1
+Woody," Resinous","Cedar",1.5
+Woody,"Burned",Smoky,1
+Woody,"Burned",Burnt toast/charred,1
+Woody,"Burned",Burnt coffee,1
+Earthy,"Moldy",Moldy cork,1
+Earthy,"Moldy",Musty (mildew),1
+Earthy,"Earthy",Mushroomy,1
+Earthy,"Earthy",Dustry,1
+Chemical,"Petroleum",Diesel,1
+Chemical,"Petroleum",Kerosene,1
+Chemical,"Petroleum",Plastic,1
+Chemical,"Petroleum",Tar,1
+Chemical,"Sulfur",Wet wool/Wet dog,1
+Chemical,"Sulfur",Sulfur dioxide,1
+Chemical,"Sulfur",Burnt match,1
+Chemical,"Sulfur",Cooked cabbage,1
+Chemical,"Sulfur",Skunk,1
+Chemical,"Sulfur",Garlic,1
+Chemical,"Sulfur",Mercaptan,1
+Chemical,"Sulfur",Hydrogen sulfide\n(rotten eggs),2
+Chemical,"Sulfur",Rubbery,1
+Chemical,"Papery",Wet cardboard,1
+Chemical,"Papery",Filter pad,1
+Chemical,"Pungent",Ethyl acetate,1
+Chemical,"Pungent",Acetic acid,1
+Chemical,"Pungent",Ethanol,1
+Chemical,"Pungent",Sulfur dioxide,1
+Chemical,"Other",Soapy,1
+Chemical,"Other",Fishy,1
+Chemical,"Other",Sorbate,1
+Chemical,"Other",Fusel alcohol,1
+Pungent,Cool,Menthol,1.7
+Pungent,"Hot",Alcohol,1.7
+Oxidized,"Oxidized",Acetaldehyde,3.2
+Microbiological,"Yeasty",Flor yeast,1
+Microbiological,"Yeasty",Leesy,1
+Microbiological,"Lactic",Lactic acid,1
+Microbiological,"Lactic",Sweaty,1
+Microbiological,"Lactic",Butyric acid,1
+Microbiological,"Lactic",Sauerkraut,1
+Microbiological,"Other",Mousy,1
+Microbiological,"Other",Horsy,1
+Floral,"Floral",Linalool,1
+Floral,"Floral",Orange blossom,1
+Floral,"Floral",Rose,1
+Floral,"Floral",Violet,1
+Floral,"Floral",Geranium,1
+Spicy,"Spicy",Licorice (anise),1
+Spicy,"Spicy",Cloves,1
+Spicy,"Spicy",Black pepper,1
